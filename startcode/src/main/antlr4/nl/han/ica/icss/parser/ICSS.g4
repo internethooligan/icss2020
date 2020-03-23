@@ -6,7 +6,6 @@ IF: 'if';
 BOX_BRACKET_OPEN: '[';
 BOX_BRACKET_CLOSE: ']';
 
-
 //Literals
 TRUE: 'TRUE';
 FALSE: 'FALSE';
@@ -40,4 +39,30 @@ ASSIGNMENT_OPERATOR: ':=';
 
 //--- PARSER: ---
 
-stylesheet: EOF;
+stylesheet : var* styleRule+  EOF;
+
+// VARIABLES
+var : varRef ASSIGNMENT_OPERATOR literal SEMICOLON;
+varRef : CAPITAL_IDENT;
+
+// STYLE DEFINITIONS
+styleRule : selector body;
+
+selector : tagSelector | idSelector | classSelector;
+tagSelector : LOWER_IDENT;
+idSelector : ID_IDENT;
+classSelector : CLASS_IDENT;
+
+body : OPEN_BRACE declaration+ CLOSE_BRACE;
+
+declaration : nameProperty COLON expression SEMICOLON;
+
+nameProperty : LOWER_IDENT;
+
+expression : value | operation;
+
+value : literal | varRef;
+
+operation : value #valueExpression | operation MUL operation #multiplyOperation | operation PLUS operation #addOperation | operation MIN operation #subtractOperation;
+
+literal : PIXELSIZE #PixelLiteral | COLOR #ColorLiteral | (TRUE | FALSE) #BoolLiteral | PERCENTAGE #PercentageLiteral | SCALAR #ScalarLiteral;
