@@ -1,14 +1,14 @@
 package nl.han.ica.icss.checker;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.*;
 import nl.han.ica.icss.ast.operations.AddOperation;
 import nl.han.ica.icss.ast.operations.MultiplyOperation;
 import nl.han.ica.icss.ast.operations.SubtractOperation;
 import nl.han.ica.icss.ast.types.ExpressionType;
+
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Checker {
 
@@ -51,8 +51,8 @@ public class Checker {
         }
 
         if (node.getChildren().size() > 0) {
-            for (final ASTNode n : node.getChildren()) {
-                traverseCheck(n);
+            for (final ASTNode child : node.getChildren()) {
+                traverseCheck(child);
             }
         }
     }
@@ -82,7 +82,8 @@ public class Checker {
             if (left != null && right != null) {
                 if (node instanceof AddOperation || node instanceof SubtractOperation) {
                     if (!((left instanceof PixelLiteral && right instanceof PixelLiteral) ||
-                            (left instanceof PercentageLiteral && right instanceof PercentageLiteral))) {
+                            (left instanceof PercentageLiteral && right instanceof PercentageLiteral) ||
+                            (left instanceof ScalarLiteral && right instanceof ScalarLiteral))) {
                         node.setError(YOU_CAN_T_ADD_SUBTRACT_VALUES_WHICH_ARE_NOT_OF_THE_SAME_TYPE);
                     }
                 }
