@@ -21,6 +21,7 @@ public class Checker {
     public static final String COLOR = "color";
     public static final String WIDTH = "width";
     public static final String HEIGHT = "height";
+    public static final String EXPRESSION_IS_NOT_A_BOOLEAN = "Expression is not a boolean..";
 
     private LinkedList<HashMap<String, ExpressionType>> variableTypes;
     private int currentScope = 0;
@@ -50,10 +51,25 @@ public class Checker {
         if (node instanceof Declaration) {
             checkDeclaration((Declaration) node);
         }
+        if (node instanceof IfClause) {
+            checkIfClause((IfClause) node);
+        }
 
         if (node.getChildren().size() > 0) {
             for (final ASTNode child : node.getChildren()) {
                 traverseCheck(child);
+            }
+        }
+    }
+
+    private void checkIfClause(final IfClause node) {
+        final Expression expression = node.getConditionalExpression();
+
+        if (!(expression instanceof BoolLiteral) && (expression instanceof Literal)) {
+            node.setError(EXPRESSION_IS_NOT_A_BOOLEAN);
+        } else if (expression instanceof VariableReference) {
+            if (contains((VariableReference) expression, ExpressionType.BOOL)) {
+                node.setError(EXPRESSION_IS_NOT_A_BOOLEAN);
             }
         }
     }
