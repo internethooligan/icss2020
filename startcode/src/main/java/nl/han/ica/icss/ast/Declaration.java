@@ -45,14 +45,26 @@ public class Declaration extends ASTNode {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
-		Declaration that = (Declaration) o;
-		return Objects.equals(property, that.property) &&
-				Objects.equals(expression, that.expression);
-	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(property, expression);
-	}
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Declaration that = (Declaration) o;
+        return Objects.equals(property, that.property) &&
+                Objects.equals(expression, that.expression);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(property, expression);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(property.name);
+        builder.append(" : ");
+        builder.append(expression.toString());
+        builder.append(";\n");
+
+        return builder.toString();
+    }
 }

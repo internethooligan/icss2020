@@ -43,14 +43,19 @@ public class VariableAssignment extends ASTNode {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
-		VariableAssignment that = (VariableAssignment) o;
-		return Objects.equals(name, that.name) &&
-				Objects.equals(expression, that.expression);
-	}
+        if (!super.equals(o)) return false;
+        VariableAssignment that = (VariableAssignment) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(expression, that.expression);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(name, expression);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, expression);
+    }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

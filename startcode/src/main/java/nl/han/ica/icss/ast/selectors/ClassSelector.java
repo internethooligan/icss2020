@@ -16,6 +16,7 @@ public class ClassSelector extends Selector {
         return "ClassSelector " + cls;
     }
 
+    @Override
     public String toString() {
         return cls;
     }
@@ -32,4 +33,6 @@ public class ClassSelector extends Selector {
     public int hashCode() {
         return Objects.hash(cls);
     }
+
+
 }

@@ -8,6 +8,7 @@ public class PropertyName extends ASTNode {
         super();
         name = "undefined";
     }
+
     public PropertyName(String name) {
         super();
         this.name = name;
@@ -16,5 +17,10 @@ public class PropertyName extends ASTNode {
     @Override
     public String getNodeLabel() {
         return "Property: (" + name + ")";
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
