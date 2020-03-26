@@ -231,4 +231,18 @@ public class ASTListener extends ICSSBaseListener {
     public void exitClassSelector(final ICSSParser.ClassSelectorContext ctx) {
         currentContainer.pop();
     }
+
+    @Override
+    public void enterIfClause(final ICSSParser.IfClauseContext ctx) {
+        IfClause ifClause = new IfClause();
+        BoolLiteral boolLiteral = new BoolLiteral(ctx.expression().toString());
+        ifClause.addChild(boolLiteral);
+        currentContainer.peek().addChild(ifClause);
+        currentContainer.push(ifClause);
+    }
+
+    @Override
+    public void exitIfClause(final ICSSParser.IfClauseContext ctx) {
+        currentContainer.pop();
+    }
 }
