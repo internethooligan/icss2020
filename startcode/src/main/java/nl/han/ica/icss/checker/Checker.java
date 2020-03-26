@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 public class Checker {
 
-    private static final int GLOBAL_SCOPE = 0;
+    public static final int GLOBAL_SCOPE = 0;
     public static final String A_COLOR_STYLE_SHOULD_CONTAIN_A_COLOR_LITERAL = "A color style should contain a color literal..";
     public static final String A_WIDTH_NODE_SHOULD_CONTAIN_A_PIXEL_OF_PERCENTAGE_LITERAL = "A width node should contain a pixel of percentage literal..";
     public static final String YOU_CAN_T_ADD_SUBTRACT_VALUES_WHICH_ARE_NOT_OF_THE_SAME_TYPE = "You can't add/subtract values which are not of the same type..";
@@ -20,6 +20,7 @@ public class Checker {
     public static final String VARIABLE_IS_NOT_AVAILABLE_FOR_CURRENT_SCOPE_OR_IS_NOT_DEFINED_AT_ALL = "Variable is not available for current scope or is not defined at all..";
     public static final String COLOR = "color";
     public static final String WIDTH = "width";
+    public static final String HEIGHT = "height";
 
     private LinkedList<HashMap<String, ExpressionType>> variableTypes;
     private int currentScope = 0;
@@ -67,7 +68,7 @@ public class Checker {
                 }
             }
         }
-        if (node.property.name.contains(WIDTH)) {
+        if (node.property.name.contains(WIDTH) || node.property.name.contains(HEIGHT)) {
             if (node.expression instanceof VariableReference && (contains((VariableReference) node.expression, ExpressionType.SCALAR) || contains((VariableReference) node.expression, ExpressionType.COLOR) || contains((VariableReference) node.expression, ExpressionType.BOOL))) {
                 node.setError(A_WIDTH_NODE_SHOULD_CONTAIN_A_PIXEL_OF_PERCENTAGE_LITERAL);
             }
