@@ -122,13 +122,7 @@ public class Checker {
     }
 
     private boolean contains(final VariableReference node, final ExpressionType type) {
-        for (final HashMap variableType : variableTypes) {
-            if (variableType.get(node.name) == type) {
-                return true;
-            }
-        }
-
-        return false;
+        return variableTypes.stream().anyMatch((variableType) -> variableType.get(node.name) == type);
     }
 
     private void addVariable(final VariableAssignment node) {

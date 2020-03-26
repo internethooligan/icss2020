@@ -39,9 +39,7 @@ public class EvalExpressions implements Transform {
         }
 
         if (node.getChildren().size() > 0) {
-            for (final ASTNode child : node.getChildren()) {
-                traverseEvaluation(child);
-            }
+            node.getChildren().forEach(this::traverseEvaluation);
         }
     }
 
@@ -80,7 +78,6 @@ public class EvalExpressions implements Transform {
     }
 
     private Literal transformOperation(final Operation operation) {
-        int o = 0;
         if (!(operation.lhs instanceof Literal)) {
             operation.removeChild(operation.lhs);
         }
