@@ -32,7 +32,7 @@ public class ASTListener extends ICSSBaseListener {
     }
 
     // OVERRIDING
-    // Parser tm level 3 werkt, rest van de code tot level 2
+    // Parser tm level 3 werkt
     @Override
     public void enterStylesheet(final ICSSParser.StylesheetContext ctx) {
         Stylesheet stylesheet = new Stylesheet();
